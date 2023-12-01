@@ -3,16 +3,14 @@ import { CircularProgress, Grid, Typography, InputLabel, MenuItem, FormControl, 
 import PlaceDetails from '../PlaceDetails/PlaceDetails';
 import useStyles from './styles'
 
-const List = ({ places, childClicked, isLoading  }) => {
+const List = ({ places, childClicked, isLoading, type, setType, rating, setRating   }) => {
     const classes = useStyles();
-    const [type, setType] = useState('restaurants');
-    const [rating, setRating] = useState('');
     const [elRefs, setElRefs] = useState([]);
 
    useEffect(() => {
      const refs = Array(places?.length).fill().map((_, i) => elRefs[i] || createRef());
      setElRefs(refs);
-   }, [places])
+   }, [places]);
 
 
     return (
@@ -35,8 +33,8 @@ const List = ({ places, childClicked, isLoading  }) => {
                 setType(e.target.value);
                }}>
                 <MenuItem value="restaurants">Restaurants</MenuItem>
-                <MenuItem value="hotles">Hotles</MenuItem>
-                <MenuItem value="attraction">Attractions</MenuItem>
+                <MenuItem value="hotels">Hotles</MenuItem>
+                <MenuItem value="attractions">Attractions</MenuItem>
                </Select>
             </FormControl>
             <FormControl className={classes.formControl}>
@@ -57,7 +55,7 @@ const List = ({ places, childClicked, isLoading  }) => {
                   <Grid  item key={i} xs={12}>
                      <PlaceDetails 
                      place={place}
-                     selected={ Number(childClicked === i)}
+                     selected={ Number(childClicked) === i}
                      refProp={elRefs[i]}
                      />
                   </Grid>
